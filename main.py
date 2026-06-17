@@ -236,6 +236,11 @@ class SpiceMachineUI(QWidget):
     # -----------------------------
     # SPICE CLICK
     # -----------------------------
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key.Key_Escape:
+            self.showNormal()
+
     def on_spice_click(self, idx):
         now = time.time()
         last_time = self.last_tap_time.get(idx, 0)
