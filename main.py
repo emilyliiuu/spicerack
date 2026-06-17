@@ -207,6 +207,7 @@ class SpiceMachineUI(QWidget):
         # TITLE
         self.title = QLabel("Select a Spice")
         self.title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.title.setStyleSheet("color: white; font-size: 20px;")
         self.title.setFixedHeight(80)
         self.layout.addWidget(self.title)
 
@@ -361,7 +362,7 @@ class SpiceMachineUI(QWidget):
                     border-radius: {radius}px;
                     background-color: {color};
                     color: white;
-                    font-size: 14px;
+                    font-size: 26px;
                     font-weight: bold;
                     border: {border};
                 }}
