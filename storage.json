@@ -1,0 +1,68 @@
+[
+  {
+    "name": "pepper",
+    "rfid": null,
+    "color": "#8B0000"
+  },
+  {
+    "name": "HELLON",
+    "rfid": null,
+    "color": "#DAA520"
+  },
+  {
+    "name": "Spice 3",
+    "rfid": null
+  },
+  {
+    "name": "Spice 4",
+    "rfid": null
+  },
+  {
+    "name": "Spice 5",
+    "rfid": null
+  },
+  {
+    "name": "Spice 6",
+    "rfid": null
+  },
+  {
+    "name": "Spice 7",
+    "rfid": null
+  },
+  {
+    "name": "Spice 8",
+    "rfid": null
+  },
+  {
+    "name": "Spice 9",
+    "rfid": null
+  },
+  {
+    "name": "Spice 10",
+    "rfid": null
+  },
+  {
+    "name": "Spice 11",
+    "rfid": null
+  },
+  {
+    "name": "Spice 12",
+    "rfid": null
+  },
+  {
+    "name": "Spice 13",
+    "rfid": null
+  },
+  {
+    "name": "Spice 14",
+    "rfid": null
+  },
+  {
+    "name": "Spice 15",
+    "rfid": null
+  },
+  {
+    "name": "Spice 16",
+    "rfid": null
+  }
+]
