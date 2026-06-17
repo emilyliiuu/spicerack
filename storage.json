@@ -2,7 +2,7 @@
   {
     "name": "pepper",
     "rfid": null,
-    "color": "#8B0000"
+    "color": "#1E90FF"
   },
   {
     "name": "HELLON",
@@ -10,8 +10,10 @@
     "color": "#DAA520"
   },
   {
-    "name": "Spice 3",
-    "rfid": null
+    "name": "EMPTYHI",
+    "rfid": null,
+    "color": "#800080",
+    "weight": 0
   },
   {
     "name": "Spice 4",
@@ -38,8 +40,9 @@
     "rfid": null
   },
   {
-    "name": "Spice 10",
-    "rfid": null
+    "name": "Spice 10P",
+    "rfid": null,
+    "color": "#444444"
   },
   {
     "name": "Spice 11",
@@ -63,6 +66,7 @@
   },
   {
     "name": "Spice 16",
-    "rfid": null
+    "rfid": null,
+    "color": "#444444"
   }
 ]

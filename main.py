@@ -1,11 +1,13 @@
 import sys
 import json
 import time
+from PyQt6.QtWidgets import QSizePolicy
 from PyQt6.QtWidgets import (
     QApplication, QWidget, QPushButton, QLabel,
     QGridLayout, QVBoxLayout, QHBoxLayout, QLineEdit, QDialog
 )
 from PyQt6.QtCore import Qt
+from PyQt6.QtCore import QTimer
 
 STORAGE_FILE = "storage.json"
 
@@ -188,6 +190,12 @@ class SpiceMachineUI(QWidget):
         self.tap_hint_label = {}
 
         self.setWindowTitle("Spice Machine")
+        self.setStyleSheet("""
+            QWidget {
+                background-color: black;
+                color: white;
+            }
+        """)
         self.showFullScreen()
 
         self.spices = load_spices()
@@ -199,6 +207,7 @@ class SpiceMachineUI(QWidget):
         # TITLE
         self.title = QLabel("Select a Spice")
         self.title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.title.setFixedHeight(80)
         self.layout.addWidget(self.title)
 
         # GRID
@@ -207,31 +216,49 @@ class SpiceMachineUI(QWidget):
 
         for i in range(16):
             btn = QPushButton(self.spices[i]["name"])
-            btn.setFixedSize(160, 160)
+
+            btn.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+
             btn.clicked.connect(lambda _, idx=i: self.on_spice_click(idx))
+
             self.buttons.append(btn)
             self.grid.addWidget(btn, i // 4, i % 4)
+
 
         self.grid.setHorizontalSpacing(15)
         self.grid.setVerticalSpacing(15)
 
-        self.layout.addLayout(self.grid)
+        self.grid_widget = QWidget()
+        self.grid_widget.setLayout(self.grid)
 
-        # BOTTOM BAR
-        bottom = QHBoxLayout()
-
-        self.edit_btn = QPushButton("Edit Mode")
+        self.layout.addWidget(self.grid_widget, stretch=1)
+        self.edit_btn = QPushButton("⚙")
         self.edit_btn.clicked.connect(self.toggle_edit)
 
-        self.return_btn = QPushButton("Return Bottle")
-        self.return_btn.clicked.connect(self.return_bottle)
+        self.edit_btn.setFixedSize(70, 70)
 
-        bottom.addWidget(self.edit_btn)
-        bottom.addWidget(self.return_btn)
+        self.edit_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #333333;
+                color: white;
+                border-radius: 35px;
+                font-size: 28px;
+                font-weight: bold;
+            }
+            QPushButton:pressed {
+                background-color: #111111;
+            }
+        """)
 
-        self.layout.addLayout(bottom)
+        corner_layout = QHBoxLayout()
+        corner_layout.addStretch()
+        corner_layout.addWidget(self.edit_btn)
 
-        self.refresh()
+        self.layout.addLayout(corner_layout)
+
+        QTimer.singleShot(100, self.refresh)
+
+    
 
     # -----------------------------
     # SPICE CLICK
@@ -275,15 +302,15 @@ class SpiceMachineUI(QWidget):
         print("DISPENSE:", spice["name"])
 
         # reset highlight after short delay
-        from PyQt6.QtCore import QTimer
         QTimer.singleShot(400, self.refresh)
+
 
     # -----------------------------
     # EDIT MODE
     # -----------------------------
     def toggle_edit(self):
         self.edit_mode = not self.edit_mode
-        self.edit_btn.setText("Exit Edit Mode" if self.edit_mode else "Edit Mode")
+        self.edit_btn.setText("X" if self.edit_mode else "⚙")
 
     def open_edit(self, idx):
         dialog = EditDialog(self.spices[idx])
@@ -327,20 +354,19 @@ class SpiceMachineUI(QWidget):
                 border = "4px solid white"
             else:
                 border = "none"
-
+            diameter = min(btn.width(), btn.height())
+            radius = diameter // 2
             btn.setStyleSheet(f"""
                 QPushButton {{
-                    border-radius: 80px;
+                    border-radius: {radius}px;
                     background-color: {color};
                     color: white;
-                    font-size: 12px;
+                    font-size: 14px;
                     font-weight: bold;
                     border: {border};
                 }}
-                QPushButton:pressed {{
-                    background-color: #111;
-                }}
             """)
+        
 
     # -----------------------------
     # RETURN (RFID HOOK)
@@ -357,7 +383,6 @@ class SpiceMachineUI(QWidget):
                 return
 
         self.title.setText("Unknown Bottle")
-
 
 # -----------------------------
 # RUN
